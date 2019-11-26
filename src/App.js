@@ -13,6 +13,8 @@ class App extends React.Component {
         { title: "React", isDone: false, priority: "high"}
     ];
     
+    filterValue = "Active";
+
     render = () => {
         
         return (
@@ -20,7 +22,7 @@ class App extends React.Component {
                 <div className="todoList">
                     <TodoListHeader />
                     <TodoListTasks tasks={this.tasks}/>
-                    <TodoListFooter />
+                    <TodoListFooter filterValue={this.filterValue}/>
                 </div>
             </div>
         );

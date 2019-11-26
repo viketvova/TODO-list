@@ -12,5 +12,21 @@
 }
 
 .todoList-task {
+  
+}
 
+.filter-active {
+  background-color: blue;
+}
+
+.low {
+  color: green;
+}
+
+.medium {
+  color: goldenrod;
+}
+
+.high {
+  color: red;
 }
