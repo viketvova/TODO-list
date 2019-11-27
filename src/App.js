@@ -32,6 +32,12 @@ class App extends React.Component {
          this.newTaskTitleRef.current.value = "";
          
      }
+     changeFilter = (newFilterValue) => {
+        this.setState({
+          filterValue: newFilterValue
+        });
+      }
+  
 
     render = () => {
 //console.log(this.onAddTaskClick)
@@ -39,8 +45,19 @@ class App extends React.Component {
             <div className="App">
                 <div className="todoList">
                     <TodoListHeader button={this.onAddTaskClick} input={this.newTaskTitleRef}/>
-                    <TodoListTasks tasks={this.state.tasks} />
-                    <TodoListFooter filterValue={this.state.filterValue} />
+                    <TodoListTasks tasks={this.state.tasks.filter( el => {
+                    if(this.state.filterValue === "All") {
+                      return true 
+                      }
+                    else if(this.state.filterValue === "Active") {
+                      return el.isDone === false
+                    }  
+                    else {
+                      return el.isDone === true
+                    }  
+                    }
+                    )} />
+                    <TodoListFooter changeFilter={this.changeFilter} filterValue={this.state.filterValue} />
                 </div>
             </div>
         );
