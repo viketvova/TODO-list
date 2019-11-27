@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import TodoListFooter from './TodoListFooter';
 import TodoListTasks from './TodoListTasks';
-//import TodoListHeader from './TodoListHeader';
+import TodoListHeader from './TodoListHeader';
 
 class App extends React.Component {
     constructor(props) {
@@ -34,18 +34,11 @@ class App extends React.Component {
      }
 
     render = () => {
-console.log(this.onAddTaskClick)
+//console.log(this.onAddTaskClick)
         return (
             <div className="App">
                 <div className="todoList">
-                    {/* <TodoListHeader button={this.onAddTaskClick} /> */}
-                    <div className="todoList-header">
-                <h3 className="todoList-header__title">What to Learn</h3>
-                <div className="todoList-newTaskForm">
-                    <input ref={this.newTaskTitleRef} type="text" placeholder="New task name" />
-                    <button onClick={this.onAddTaskClick}>Add</button>
-                </div>
-            </div>
+                    <TodoListHeader button={this.onAddTaskClick} input={this.newTaskTitleRef}/>
                     <TodoListTasks tasks={this.state.tasks} />
                     <TodoListFooter filterValue={this.state.filterValue} />
                 </div>
