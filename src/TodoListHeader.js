@@ -19,7 +19,7 @@ onAddTaskClick = () => {
 }
 
     render = () => {
-      console.log( this.props.addTask)
+      
     let changeClassName = this.state.error === true ? "error" : "" ;
     
         return (

@@ -22,7 +22,7 @@ class TodoListFooter extends React.Component {
         let classForAll = this.props.filterValue === "All" ? "filter-active" : "";
         let classForCompleted = this.props.filterValue === "Completed" ? "filter-active" : "";
         let classForActive = this.props.filterValue === "Active" ? "filter-active" : "";
-console.log(this.setState)
+
         return (
 
             <div className="todoList-footer">
