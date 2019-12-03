@@ -16,36 +16,61 @@ class App extends React.Component {
             { title: "HTML", isDone: true, priority: "medium" },
             { title: "React", isDone: false, priority: "high" }
         ],
-        filterValue: "Active"
+
     };
-    onAddTaskClick = () => {
-        let newInput = this.newTaskTitleRef.current.value;
-        let newTask = {
-            title: newInput,
-            isDOne: false,
-            priority: 'low'
-         };
-         let newTasks = [...this.state.tasks, newTask];
-         this.setState ({
+
+    addTask = (newText) => {
+      let newTask = {
+        title: newText,
+        isDone: false,
+        priority: 'low'
+      };
+      let newTasks = [...this.state.tasks, newTask];
+      this.setState ({
              tasks: newTasks
          });
-         this.newTaskTitleRef.current.value = "";
+    }
+
+    // onAddTaskClick = () => {
+    //     let newInput = this.newTaskTitleRef.current.value;
+    //     let newTask = {
+    //         title: newInput,
+    //         isDOne: false,
+    //         priority: 'low'
+    //      };
+    //      let addTask = [...this.state.tasks, newTask];
+    //      this.setState ({
+    //          tasks: addTask
+    //      });
+    //      this.newTaskTitleRef.current.value = "";
          
-     }
-     changeFilter = (newFilterValue) => {
-        this.setState({
-          filterValue: newFilterValue
-        });
-      }
-  
+    //  }
+    changeFilter = (newFilterValue) => {
+      this.setState({
+        filterValue: newFilterValue
+      });
+    }
+    changeStatus = (task, isDone) => {
+      let newTasks = this.state.tasks.map(t => {
+        if(t !== task) {
+          return t;
+        }
+        else {
+          return {...t, isDone: isDone}
+        }
+      })
+      this.setState({
+        tasks: newTasks
+      })
+    }
 
     render = () => {
-//console.log(this.onAddTaskClick)
+
         return (
             <div className="App">
                 <div className="todoList">
-                    <TodoListHeader button={this.onAddTaskClick} input={this.newTaskTitleRef}/>
-                    <TodoListTasks tasks={this.state.tasks.filter( el => {
+                    <TodoListHeader addTask={this.addTask} />
+                    <TodoListTasks changeStatus={this.changeStatus} tasks={this.state.tasks.filter( el => {
                     if(this.state.filterValue === "All") {
                       return true 
                       }
@@ -65,4 +90,3 @@ class App extends React.Component {
 }
 
 export default App;
-
