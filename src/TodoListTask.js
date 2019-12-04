@@ -23,7 +23,7 @@ class TodoListTask extends React.Component {
         this.props.changeStatus(this.props.task.id, e.currentTarget.checked)
     }
     render = () => {
-        console.log(this.props.changeTitle)
+        
         let classNameChanger = "";
         if (this.props.task.priority === "high" && this.props.task.isDone === true) {
             classNameChanger = "todoList-task high done";

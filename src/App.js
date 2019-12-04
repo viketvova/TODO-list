@@ -43,26 +43,20 @@ class App extends React.Component {
     });
   }
   changeStatus = (taskId, isDone) => {
-    let newTasks = this.state.tasks.map(t => {
-      if (t.id !== taskId) {
-        return t;
-      }
-      else {
-        return { ...t, isDone: isDone }
-      }
-    })
-    this.setState({
-      tasks: newTasks
-    })
+    this.changeTask(taskId, {isDone: isDone})
   }
 
   changeTitle = (taskId, title) => {
+    this.changeTask(taskId, {title: title})
+  }
+
+  changeTask = (taskId, obj) => {
     let newTasks = this.state.tasks.map(t => {
       if (t.id !== taskId) {
         return t;
       }
       else {
-        return { ...t, title: title }
+        return { ...t, ...obj }
       }
     })
     this.setState({
