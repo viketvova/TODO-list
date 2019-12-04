@@ -9,50 +9,42 @@ class App extends React.Component {
         super(props);
         this.newTaskTitleRef = React.createRef();
         }
+
+    nextTaskId = 4;
+
     state = {
         tasks: [
-            { title: "JS", isDone: true, priority: "low" },
-            { title: "CSS", isDone: true, priority: "high" },
-            { title: "HTML", isDone: true, priority: "medium" },
-            { title: "React", isDone: false, priority: "high" }
+            { id:0, title: "JS", isDone: true, priority: "low" },
+            { id:1, title: "CSS", isDone: true, priority: "high" },
+            { id:2, title: "HTML", isDone: true, priority: "medium" },
+            { id:3, title: "React", isDone: false, priority: "high" }
         ],
+        filterValue: "All",
 
     };
 
     addTask = (newText) => {
       let newTask = {
+        id: this.nextTaskId,
         title: newText,
         isDone: false,
         priority: 'low'
       };
+      this.nextTaskId++;
       let newTasks = [...this.state.tasks, newTask];
       this.setState ({
              tasks: newTasks
          });
     }
 
-    // onAddTaskClick = () => {
-    //     let newInput = this.newTaskTitleRef.current.value;
-    //     let newTask = {
-    //         title: newInput,
-    //         isDOne: false,
-    //         priority: 'low'
-    //      };
-    //      let addTask = [...this.state.tasks, newTask];
-    //      this.setState ({
-    //          tasks: addTask
-    //      });
-    //      this.newTaskTitleRef.current.value = "";
-         
-    //  }
     changeFilter = (newFilterValue) => {
       this.setState({
         filterValue: newFilterValue
       });
     }
-    changeStatus = (task, isDone) => {
+    changeStatus = (taskId, isDone) => {
       let newTasks = this.state.tasks.map(t => {
-        if(t !== task) {
+        if(t.id !== taskId) {
           return t;
         }
         else {
@@ -82,7 +74,8 @@ class App extends React.Component {
                     }  
                     }
                     )} />
-                    <TodoListFooter changeFilter={this.changeFilter} filterValue={this.state.filterValue} />
+                    <TodoListFooter changeFilter={this.changeFilter} 
+                    filterValue={this.state.filterValue} />
                 </div>
             </div>
         );
