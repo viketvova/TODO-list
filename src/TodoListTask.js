@@ -2,8 +2,15 @@ import React from 'react';
 import './App.css';
 
 class TodoListTask extends React.Component {
+state ={
+    edit: false
+}
+activateEditMode = () => {
+    this.setState({
+        edit: true
+    })
+} 
     onIsDoneChecked = (e) => {
-
         this.props.changeStatus(this.props.task.id, e.currentTarget.checked)
     }
     render = () => {
@@ -30,7 +37,12 @@ class TodoListTask extends React.Component {
                 <input type="checkbox"
                     checked={this.props.task.isDone}
                     onChange={this.onIsDoneChecked} />
-                <span>{`${this.props.task.id} - ${this.props.task.title}: ${this.props.task.priority}`}</span>
+                    {this.state.edit
+                    ? <input autoFocus={true} value={this.props.task.title} />
+                    : <span onClick={this.activateEditMode}>{this.props.task.id} - 
+                    ${this.props.task.title}: ${this.props.task.priority}</span>
+                    }
+                {/* <span>{`${this.props.task.id} - ${this.props.task.title}: ${this.props.task.priority}`}</span> */}
             </div>
         );
     }
