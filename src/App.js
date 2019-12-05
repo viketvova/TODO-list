@@ -10,22 +10,36 @@ class App extends React.Component {
     this.newTaskTitleRef = React.createRef();
   }
 
-  nextTaskId = 4;
+  //nextTaskId = 0;
 
   state = {
-    tasks: [
-      { id: 0, title: "JS", isDone: true, priority: "low" },
-      { id: 1, title: "CSS", isDone: true, priority: "high" },
-      { id: 2, title: "HTML", isDone: true, priority: "medium" },
-      { id: 3, title: "React", isDone: false, priority: "high" }
-    ],
+    tasks: [],
     filterValue: "All",
-
+    nextTaskId: 0
   };
+
+  componentDidMount() {
+    this.restoreState();
+  }
+  saveState = () => {
+    let stateAsString = JSON.stringify(this.state);
+    localStorage.setItem("our-state", stateAsString)
+  }
+  restoreState = () => {
+  let state = {
+        tasks: [],
+        filterValue: "All"
+    };
+  let stateAsString = localStorage.getItem("our-state");
+  if(stateAsString != null) {
+    state = JSON.parse(stateAsString);
+  }
+  this.setState(state)
+  }
 
   addTask = (newText) => {
     let newTask = {
-      id: this.nextTaskId,
+      id: this.state.nextTaskId,
       title: newText,
       isDone: false,
       priority: 'low'
@@ -33,8 +47,11 @@ class App extends React.Component {
     this.nextTaskId++;
     let newTasks = [...this.state.tasks, newTask];
     this.setState({
-      tasks: newTasks
-    });
+      tasks: newTasks,
+      nextTaskId: this.state.nextTaskId + 1,
+    },
+    () => {this.saveState()}
+    );
   }
 
   changeFilter = (newFilterValue) => {
