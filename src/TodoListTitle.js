@@ -6,7 +6,7 @@ import TodoListSelect from './TodoListSelect'
 class TodoListTitle extends React.Component {
 constructor(props) {
         super(props);
-        //this.newTaskTitleRef = React.createRef();
+        this.newTaskTitleRef = React.createRef();
 }
 
 
